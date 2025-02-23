@@ -11,5 +11,6 @@ def task_list(request):
         form = TaskForm(request.POST)
         if form.is_valid():
             form.save()
+            print(form.cleaned_data)
             return redirect('task_list')
     return render(request, 'tasks/task_list.html', {'tasks': tasks, 'form': form})
