@@ -36,7 +36,6 @@ def register(request):
             return redirect('login')
     else:
         form = UserCreationForm()
-        return redirect('task_list')
     return render(request, 'tasks/register.html', {'form': form})
 
 
