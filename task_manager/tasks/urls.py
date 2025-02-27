@@ -14,8 +14,9 @@ urlpatterns = [
     path('login/', LoginView.as_view(template_name='tasks/login.html'), name='login'),
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
     path('register/', views.register, name='register'),
-    path('api/tasks', views.TaskListCreate.as_view(), name='task-list-create'),
+    path('api/tasks/', views.TaskListCreate.as_view(), name='task-list-create'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh')
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('search/', views.search_tasks, name='search_tasks')
 
 ]
