@@ -38,8 +38,14 @@ class TaskForm(forms.ModelForm):
         return title
     class Meta:
         model = Task
-        fields = ['title', 'description', 'completed']
+        fields = ['title', 'description', 'completed', 'priority']
         exclude = ['user']
 
 class SearchForm(forms.Form):
     query = forms.CharField(max_length=100, label='Поиск', widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+    def clean_query(self):
+        query = self.cleaned_data['query']
+        if not query.strip():
+            raise forms.ValidationError('Поле поиска не может быть пустым.')
+        return query

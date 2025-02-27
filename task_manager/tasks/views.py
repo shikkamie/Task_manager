@@ -21,8 +21,6 @@ def task_list(request):
         if form.is_valid():
             task = form.save(commit=False)
             task.user = request.user
-            if 'priority' in form.cleaned_data:
-                task.priority = form.cleaned_data['priority']
             task.save()
             return redirect('task_list')
     return render(request, 'tasks/task_list.html', {'tasks': tasks, 'form': form})
@@ -42,12 +40,12 @@ def register(request):
 @login_required
 def search_tasks(request):
     tasks = Task.objects.filter(user=request.user)
-    form = TaskForm()
-    if request.method == 'POST':
-        form = SearchForm(request.POST)
+    form = SearchForm(request.GET or None)
+    if request.method == 'GET':
+        form = SearchForm(request.GET)
         if form.is_valid():
             query = form.cleaned_data['query']
-            tasks = tasks.filter(title__icontains=query | tasks.filter(description__icontains=query))
+            tasks = tasks.filter(title__icontains=query) | tasks.filter(description__icontains=query)
     return render(request, 'tasks/search_tasks.html',
                   {'tasks': tasks, 'form': form})
 

@@ -15,7 +15,6 @@
 </head>
 <body>
     <header>
-    <p style="margin-right: 5px">Список задач</p>
     <ul class="nav nav-pills nav-fill">
         <li class="nav-item">
             <a href="http://127.0.0.1:8000/" class="nav-link active" aria-current="page">Главная</a>
@@ -27,12 +26,12 @@
     </header>
     <div class="container" style="margin: 15px auto; background-color: slategrey; border-radius: 10px; padding: 15px;">
     <h1>Поиск задач</h1>
-    <form method="post">
-        {% csrf_token %}
+    <form method="get">
+
         {{ form.as_p }}
         <button type="submit">Поиск</button>
-        <button type="reset">Очистить</button>
     </form>
+        <button type="submit"> <a href="http://127.0.0.1:8000/search/" style="text-decoration: none; color: black">Сброс поиска</a></button>
 
     <h2>Результат поиска</h2>
     <ul>
